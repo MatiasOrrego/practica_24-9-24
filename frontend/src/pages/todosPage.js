@@ -27,6 +27,24 @@ export const todosPage = () => {
     window.location.pathname = "/home";
   });
 
+  const btnCreate = document.createElement("button");
+
+  btnCreate.classList.add(
+    "bg_green-500",
+    "text-white",
+    "p-2",
+    "rounded",
+    "hover:bg-green-600",
+    "mb-4"
+  );
+
+  btnCreate.textContent = "Crear Tarea";
+
+  //evento para crear una tarea
+  btnCreate.addEventListener("click", () => {
+    alert("Crear tarea");
+  });
+
   const title = document.createElement("h1");
 
   title.classList.add("text-3xl", "font-bold", "mb-4");
@@ -60,10 +78,15 @@ export const todosPage = () => {
   th4.classList.add("border", "px-4", "py-2");
   th4.textContent = "Owner Id";
 
+  const th5 = document.createElement("th");
+  th5.classList.add("border", "px-4", "py-2");
+  th5.textContent = "Actions";
+
   tr.appendChild(th1);
   tr.appendChild(th2);
   tr.appendChild(th3);
   tr.appendChild(th4);
+  tr.appendChild(th5);
 
   thead.appendChild(tr);
 
@@ -74,6 +97,7 @@ export const todosPage = () => {
   table.appendChild(tbody);
 
   container.appendChild(btnHome);
+  container.appendChild(btnCreate);
   fetch("http://localhost:4000/todos", {
     credentials: "include",
   })
@@ -99,6 +123,9 @@ export const todosPage = () => {
         const td4 = document.createElement("td");
         td4.classList.add("border", "px-4", "py-2");
         td4.textContent = todo.owner;
+
+        const td5 = document.createElement("td");
+        td5.classList.add("border", "px-4", "py-2");
 
         tr.appendChild(td1);
         tr.appendChild(td2);
