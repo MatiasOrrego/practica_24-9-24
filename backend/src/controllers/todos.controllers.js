@@ -79,3 +79,25 @@ export const updateTodoCtrl = (req, res) => {
 
   res.json({ message: "Tarea actualizada exitosamente"});
 };
+
+export const deleteTodoCtrl = (req, res) => {
+
+  const userId = req.user.id;
+
+  const { id } = req.params;
+
+  const todoIndex = database.todos.findIndex((todo) => todo.id === Number(id));
+
+  if (todoIndex === -1) {
+    return res.status(404).json({ message: "Tarea no encontrada" });
+  }
+
+  if (database.todos[todoIndex].owner !== userId) {
+    return res.status(403).json({ message: "No tienes permiso para eliminar esta tarea" });
+  }
+
+  database.todos.splice(todoIndex, 1);
+
+  res.json({ message: "Tarea eliminada exitosamente" });
+
+}
